@@ -1,10 +1,13 @@
-import React from 'react'
-import SearchBar from './components/SearchBar'
+import Navbar from "./components/Navbar";
+import NewsBoard from "./components/NewsBoard";
 
-function App() {
+const App = () => {
   return (
-<SearchBar />
+    <div>
+      <Navbar/>
+      <NewsBoard/>
+
+    </div>
   )
 }
-
-export default App
+export default App;
