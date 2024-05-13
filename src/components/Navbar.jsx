@@ -54,7 +54,6 @@ const Navbar = () => {
               <input type="text" className="form-control" placeholder="Search" aria-label="Search" aria-describedby="search-addon" onChange={handleInputChange} value={searchQuery}  />
               <div className="input-group-append">
                 <button className="btn btn-outline-light" type="button" onClick={handleSearch} ><i className="fa fa-search"></i>
-
                 </button>
               </div>
             </div>
@@ -62,6 +61,24 @@ const Navbar = () => {
 
       </div>
     </div>
+
+    <div className="container mt-3">
+        <h2>Search Results</h2>
+        <div className="row">
+          {searchResults.map((article, index) => (
+            <div key={index} className="col-md-4 mb-3">
+              <div className="card">
+                <img src={article.urlToImage} className="card-img-top" alt={article.title} />
+                <div className="card-body">
+                  <h5 className="card-title">{article.title}</h5>
+                  <p className="card-text">{article.description}</p>
+                  <a href={article.url} target="_blank" rel="noopener noreferrer" className="btn btn-primary">Read More</a>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
   </nav>
   )
 }
