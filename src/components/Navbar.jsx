@@ -1,12 +1,41 @@
+import React from "react"
+import { useState } from "react";
 
 
 const Navbar = () => {
+
+
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const [searchResults, setSearchResults] = useState([]);
+
+  const apiKey ='80578b79a6554b3a88e42998ea4572f9'
+
+  const handleSearch = async () => {
+    try {
+    
+      const response = await fetch(`https://newsapi.org/v2/everything?q=${encodeURIComponent(searchQuery)}&pageSize=20&apiKey=${apiKey}`);
+      const data = await response.json();
+      
+      setSearchResults(data.articles);
+      console.log('Search results:', data.articles);
+    } catch (error) {
+      console.error('Error searching news:', error);
+    }
+  };
+
+  const handleInputChange = (event) => {
+    setSearchQuery(event.target.value);
+  };
+
+
+
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
     <div className="container-fluid">
       
       <button class="button" data-text="Awesome">
-    <span class="actual-text">&nbsp;MetroNews&nbsp;</span>
+    <span className="actual-text">&nbsp;MetroNews&nbsp;</span>
     <span aria-hidden="true" class="hover-text">&nbsp;MetroNews&nbsp;</span>
 </button>
       <div className="collapse navbar-collapse" id="navbarNav">
@@ -17,13 +46,20 @@ const Navbar = () => {
           <li className="nav-item">
             <a className="nav-link" href="#">Features</a>
           </li>
-          <li className="nav-item">
-            <a className="nav-link" href="#">Pricing</a>
-          </li>
-          <li className="nav-item">
-            <a className="nav-link disabled" aria-disabled="true">Disabled</a>
-          </li>
+        
         </ul>
+
+        <form className="form-inline ml-auto">
+            <div className="input-group">
+              <input type="text" className="form-control" placeholder="Search" aria-label="Search" aria-describedby="search-addon" onChange={handleInputChange} value={searchQuery}  />
+              <div className="input-group-append">
+                <button className="btn btn-outline-light" type="button" onClick={handleSearch} ><i className="fa fa-search"></i>
+
+                </button>
+              </div>
+            </div>
+          </form>
+
       </div>
     </div>
   </nav>
